@@ -1,0 +1,156 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light justify-content-between">
+  <a class="navbar-brand" href="#">Roulette</a>
+
+  <form class="form-inline my-2 my-lg-0">
+    <input class="form-control mr-sm-2" placeholder="Name"
+           aria-label="Search" value= {{userDetails.name}} readonly>
+
+    <input class="form-control mr-sm-2"  value= {{userDetails.amount}} readonly>
+    <button class="btn btn-outline-danger my-2 my-sm-0" (click)="logout()">Exit</button>
+  </form>
+
+</nav>
+
+
+<div class="container">
+  <div class="jombotron">
+    <div align="center">
+      <img src="assets\images\casinoTable.jpg" alt="casino table" height="300" width="800">
+    </div>
+  </div>
+
+</div>
+
+<div class="container">
+  <div class="jombotron">
+    <div class="row">
+      <div class="col-md-4">
+        <div class="input-group">
+          <span class="input-group-addon" >1st 12 </span>
+          <input type="number" [(ngModel)] = "val1" class="bet" value=0 #id1 min="0" step="500" onkeydown="return false"/>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="input-group">
+          <span class="input-group-addon" >2nd 12 </span>
+          <input type="number" [(ngModel)] = "val2" class="bet" value=0 #id2 min="0" step="500" onkeydown="return false"/>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="input-group">
+          <span class="input-group-addon" >3rd 12 </span>
+          <input type="number" [(ngModel)] = "val3" class="bet" value=0 #id3 min="0" step="500" onkeydown="return false"/>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-4">
+        <div class="input-group" >
+          <span class="input-group-addon"  >0 </span>
+          <input type="number" [(ngModel)] = "val4" value=0 #id4 class="bet" min="0" step="500" onkeydown="return false"/>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="input-group">
+          <span class="input-group-addon" >1 to 18 </span>
+          <input type="number" [(ngModel)] = "val5" value=0 #id5 min="0" class="bet" step="500" onkeydown="return false"/>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="input-group">
+          <span class="input-group-addon" >19 to 36</span>
+          <input type="number" [(ngModel)] = "val6" value=0 #id6 min="0" step="500" class="bet" onkeydown="return false"/>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-4">
+        <div class="input-group">
+          <span class="input-group-addon"  >Even</span>
+          <input type="number" [(ngModel)] = "val7" value=0 #id7 min="0" step="500" class="bet" onkeydown="return false"/>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="input-group">
+          <span class="input-group-addon" > Odd</span>
+          <input type="number" [(ngModel)] = "val8" value=0 #id8 min="0" step="500" class="bet" onkeydown="return false"/>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <!--<button class="btn btn-primary" (click)="postBets(id1.value, id2.value, id3.value, id4.value, id5.value, id6.value, id7.value, id8.value, userDetails.id )"> Play </button>-->
+        <button class="btn btn-primary" data-toggle="modal" data-target="#exampleModal"> Play </button>
+
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Try Your Luck</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <p>Are you sure you want to try your luck with your current selection? </p>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal"
+                        (click)="postBets(id1.value, id2.value, id3.value, id4.value, id5.value, id6.value, id7.value, id8.value, userDetails.id )">Sure</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 *ngIf="result.profit >= 0" class="modal-title" id="myModalLabel">YOU WON!!!</h5>
+                <h5 *ngIf="result.profit < 0" class="modal-title" id="myModaLabel">YOU LOST!!!</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <p> Roulette Number is : {{result.rouletteNumber}}</p>
+                <p *ngIf="result.profit >= 0"> You Won: {{ result.profit}} </p>
+                <p *ngIf="result.profit < 0"> You Lost: {{ result.profit*-1}} </p>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="myModal1Label">Error</h5>
+
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <p> Sorry Dear!!</p>
+                <p> You have insufficient balance for your selections... </p>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="resetBets()">Reset Game</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+      </div>
+    </div>
+  </div>
+
+</div>

@@ -1,0 +1,32 @@
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="#">Roulette</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse"
+          data-target="#navbarNav" aria-controls="navbarNav"
+          aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+</nav>
+
+
+<div *ngIf="this.emp==0" class="container">
+  <div class="alert alert-danger alert-dismissable">
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    <strong>** Incorrect ID</strong>  please try again !!!
+  </div>
+</div>
+
+<div class="container">
+  <div class="jombotron">
+    <!--<input type="text" name="uid" #uid />-->
+    <!--<button (click)="login(uid.value)" class="btn btn-success"> Log In </button>-->
+
+    <div class="input-group">
+      <span class="input-group-addon" id="basic-addon1">Enter Unique ID</span>
+      <input type="text" class="form-control" placeholder="ID" name="uid" #uid aria-describedby="basic-addon1" />
+    </div>
+
+    <button (click)="login(uid.value)" class="btn btn-success"> Log In </button>
+
+  </div>
+</div>
